@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { DocumentData, Firestore, Timestamp, collection, doc, query, where, getDoc, getDocs, addDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
 
-export const getLogsByDate = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+export const getLogsByDate = async (req: Request, res: Response, next: NextFunction, db: Firestore): Promise<void> => {
   try {
     const date = new Date(req.params.date);
     if (isNaN(date.getTime())) {
@@ -26,11 +26,11 @@ export const getLogsByDate = async (req: Request, res: Response, db: Firestore):
     res.json(snapshot.docs.map(doc2Log));
   }
   catch (error: any) {
-    res.status(500).json({ message: `Error fetching log: ${error}` });
+    next(error);
   }
 }
 
-export const getAllLogs = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+export const getAllLogs = async (req: Request, res: Response, next: NextFunction, db: Firestore): Promise<void> => {
   try {
     const ref = doc(db, 'users', req.params.user);
     const _snap = await getDoc(ref);
@@ -44,11 +44,11 @@ export const getAllLogs = async (req: Request, res: Response, db: Firestore): Pr
     res.json(snapshot.docs.map(doc2Log));
   }
   catch (error: any) {
-    res.status(500).json({ message: `Error fetching log: ${error}` });
+    next(error);
   }
 }
 
-export const addLog = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+export const addLog = async (req: Request, res: Response, next: NextFunction, db: Firestore): Promise<void> => {
   try {
     const _uref = doc(db, 'users', req.params.user);
     const _usnap = await getDoc(_uref);
@@ -72,17 +72,17 @@ export const addLog = async (req: Request, res: Response, db: Firestore): Promis
     res.status(201).json({ id: ref.id });
   }
   catch (error: any) {
-    res.status(500).json({ message: `Error fetching log: ${error}` });
+    next(error);
   }
 }
 
-export const deleteLog = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+export const deleteLog = async (req: Request, res: Response, next: NextFunction, db: Firestore): Promise<void> => {
   try {
     await deleteDoc(doc(db, 'logs', req.params.id));
     res.status(204).send();
   }
   catch (error: any) {
-    res.status(500).json({ message: `Error fetching log: ${error}` });
+    next(error);
   }
 }
 

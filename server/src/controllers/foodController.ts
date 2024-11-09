@@ -1,35 +1,47 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { DocumentData, Firestore, collection, doc, getDoc, getDocs, addDoc } from 'firebase/firestore';
 
-export const getFood = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+import { FoodSchema } from '../models/foodModel';
+
+export const getFood = async (req: Request, res: Response, next: NextFunction, db: Firestore): Promise<void> => {
   try {
     const ref = doc(db, 'food', req.params.id);
+    
     const snapshot = await getDoc(ref);
-    if (snapshot.exists()) res.json(snapshot);
-    else res.status(404).json({ message: 'Food not found' });
+    if (!snapshot.exists()) {
+      res.status(404).json({ message: 'Food not found' });
+      return;
+    }
+    
+    res.json(snapshot);
   }
   catch (error: any) {
-    res.status(500).json({ message: `Error fetching food: ${error}` });
+    next(error);
   }
 }
 
-export const getAllFood = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+export const getAllFood = async (req: Request, res: Response, next: NextFunction, db: Firestore): Promise<void> => {
   try {
     const snapshot = await getDocs(collection(db, 'food'));
     res.json(snapshot.docs.map(doc2Food));
   }
   catch (error: any) {
-    res.status(500).json({ message: `Error fetching food: ${error}` });
+    next(error);
   }
 };
 
-export const addFood = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+export const addFood = async (req: Request, res: Response, next: NextFunction, db: Firestore): Promise<void> => {
   try {
+    FoodSchema.strict().parse(req.body);
+
     const ref = await addDoc(collection(db, 'food'), req.body);
-    res.status(201).json({ id: ref.id });
+    res.status(201).json({
+      id: ref.id,
+      ...req.body,
+    });
   }
   catch (error: any) {
-    res.status(500).json({ message: `Error adding food: ${error}` });
+    next(error);
   }
 }
 

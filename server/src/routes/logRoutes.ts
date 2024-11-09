@@ -6,9 +6,9 @@ import { getLogsByDate, getAllLogs, addLog, deleteLog } from '../controllers/log
 
 const db = getDb();
 
-router.get('/:user', (req, res) => getAllLogs(req, res, db));
-router.delete('/:user/delete/:id', (req, res) => deleteLog(req, res, db));
-router.post('/:user/:food/add', (req, res) => addLog(req, res, db));
-router.get('/:user/:date', (req, res) => getLogsByDate(req, res, db));
+router.get('/:user', (req, res, next) => getAllLogs(req, res, next, db));
+router.delete('/:user/delete/:id', (req, res, next) => deleteLog(req, res, next, db));
+router.post('/:user/:food/add', (req, res, next) => addLog(req, res, next, db));
+router.get('/:user/:date', (req, res, next) => getLogsByDate(req, res, next, db));
 
 module.exports = router;

@@ -1,9 +1,11 @@
-export interface User {
-    firstName: string;
-    lastName: string;
-    profilePicture: number;
-    currentStreak: number;
-    maxStreak: number;
-    weight: number;
-    height: number;
-}
+import { z } from 'zod';
+
+export const UserSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  profilePicture: z.number(),
+  currentStreak: z.number(),
+  maxStreak: z.number(),
+  weight: z.number(),
+  height: z.number(),
+});

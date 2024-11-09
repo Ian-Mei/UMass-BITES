@@ -1,7 +1,9 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { Firestore, collection, doc, getDoc, addDoc, updateDoc } from 'firebase/firestore';
 
-export const getUser = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+import { UserSchema } from '../models/userModel';
+
+export const getUser = async (req: Request, res: Response, next: NextFunction, db: Firestore): Promise<void> => {
   try {
     const ref = doc(db, 'users', req.params.id);
     const snapshot = await getDoc(ref);
@@ -9,21 +11,23 @@ export const getUser = async (req: Request, res: Response, db: Firestore): Promi
     else res.status(404).json({ message: 'User not found' });
   }
   catch (error: any) {
-    res.status(500).json({ message: `Error fetching user: ${error}` });
+    next(error);
   }
 }
 
-export const addUser = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+export const addUser = async (req: Request, res: Response, next: NextFunction, db: Firestore): Promise<void> => {
   try {
+    UserSchema.strict().parse(req.body);
+
     const ref = await addDoc(collection(db, 'users'), req.body);
     res.status(201).json({ id: ref.id });
   }
   catch (error: any) {
-    res.status(500).json({ message: `Error adding user: ${error}` });
+    next(error);
   }
 }
 
-export const editUser = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+export const editUser = async (req: Request, res: Response, next: NextFunction, db: Firestore): Promise<void> => {
   try {
     const ref = doc(db, 'users', req.params.id);
     await updateDoc(ref, req.body);
@@ -31,11 +35,11 @@ export const editUser = async (req: Request, res: Response, db: Firestore): Prom
     snapshot.exists() ? res.json({ data: snapshot.data() }) : res.status(404).json({ message: 'User not found' });
   }
   catch (error: any) {
-    res.status(500).json({ message: `Error editing user: ${error}` });
+    next(error);
   }
 }
 
-export const deleteUser = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+export const deleteUser = async (req: Request, res: Response, next: NextFunction, db: Firestore): Promise<void> => {
   try {
     const ref = doc(db, 'users', req.params.id);
     await updateDoc(ref, {
@@ -46,6 +50,6 @@ export const deleteUser = async (req: Request, res: Response, db: Firestore): Pr
     snapshot.exists() ? res.status(204).send() : res.status(404).json({ message: 'User not found' });
   }
   catch (error: any) {
-    res.status(500).json({ message: `Error deleting user: ${error}` });
+    next(error);
   }
 }

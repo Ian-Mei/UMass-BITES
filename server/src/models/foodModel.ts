@@ -1,28 +1,26 @@
-export interface Food {
-  name: string;
-  servingSize: number;
-  servingUnit: string;
-  calories: number;
-  calsFromFat: number;
-  fat: {
-    total: number;
-    saturated: number;
-    trans: number;
-  };
-  cholesterol: number;
-  sodium: number;
-  carbs: {
-    total: number;
-    fiber: number;
-    sugar: number;
-  };
-  protein: number;
-  vitamins: {
-    calcium: number;
-    iron: number;
-    potassium: number;
-    d: number;
-  };
-  ingredients: string;
-  allergens: string[];
-}
+import { z } from 'zod';
+
+const FatSchema = z.object({
+  total: z.number(),
+  saturated: z.number(),
+  trans: z.number(),
+});
+const CarbSchema = z.object({
+  total: z.number(),
+  fiber: z.number(),
+  sugar: z.number(),
+});
+export const FoodSchema = z.object({
+  name: z.string(),
+  servingSize: z.number(),
+  servingUnit: z.string(),
+  calories: z.number(),
+  calsFromFat: z.number(),
+  fat: FatSchema,
+  cholesterol: z.number(),
+  sodium: z.number(),
+  carbs: CarbSchema,
+  protein: z.number(),
+  ingredients: z.string(),
+  allergens: z.array(z.string()),
+});
