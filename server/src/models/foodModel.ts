@@ -5,16 +5,16 @@ export interface Food {
   calories: number;
   calsFromFat: number;
   fat: {
-    saturated: number;
     total: number;
+    saturated: number;
     trans: number;
   };
   cholesterol: number;
   sodium: number;
   carbs: {
+    total: number;
     fiber: number;
     sugar: number;
-    total: number;
   };
   protein: number;
   vitamins: {

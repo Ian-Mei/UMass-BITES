@@ -122,3 +122,6 @@ dist
 logs
 **/*.backup.*
 **/*.back.*
+
+# Test files
+*.rest
