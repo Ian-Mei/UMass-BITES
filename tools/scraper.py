@@ -42,7 +42,8 @@ for h in halls:
             'ingredients': r['data-ingredient-list'],
             'allergens': r['data-allergens'].split(", "),
         }
-        arr.append(json.dumps(foodResults))
+        #arr.append(json.dumps(foodResults))
+        requests.post('http://localhost:3001/food/add', json=json.dumps(foodResults))
         
     #grab n gos
     
@@ -87,12 +88,8 @@ for h in halls:
                 'ingredients': rG['data-ingredient-list'],
                 'allergens': rG['data-allergens'].split(", "),
             }
-            arr.append(json.dumps(foodResults))
+            #arr.append(json.dumps(foodResults))
+            requests.post('http://localhost:3001/food/add', json=json.dumps(foodResults))
     
     
     
-
-
-
-
-print(len(arr))
