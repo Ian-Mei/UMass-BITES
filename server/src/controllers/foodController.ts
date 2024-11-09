@@ -1,19 +1,5 @@
 import { Request, Response } from 'express';
-import { DocumentData, Firestore, collection, doc, getDoc, getDocs } from 'firebase/firestore';
-
-import { Food } from '../models/foodModel';
-
-export const getAllFood = async (req: Request, res: Response, db: Firestore): Promise<void> => {
-  const ret: Food[] = [];
-
-  try {
-    const snapshot = await getDocs(collection(db, 'food'));
-    snapshot.forEach(s => ret.push(doc2Food(s)));
-    res.json(ret);
-  } catch (error: any) {
-    res.status(500).json({ message: 'Error fetching food' });
-  }
-};
+import { DocumentData, Firestore, collection, doc, getDoc, getDocs, addDoc } from 'firebase/firestore';
 
 export const getFood = async (req: Request, res: Response, db: Firestore): Promise<void> => {
   try {
@@ -21,8 +7,29 @@ export const getFood = async (req: Request, res: Response, db: Firestore): Promi
     const snapshot = await getDoc(ref);
     if (snapshot.exists()) res.json(snapshot);
     else res.status(404).json({ message: 'Food not found' });
-  } catch (error: any) {
+  }
+  catch (error: any) {
     res.status(500).json({ message: `Error fetching food: ${error}` });
+  }
+}
+
+export const getAllFood = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+  try {
+    const snapshot = await getDocs(collection(db, 'food'));
+    res.json(snapshot.docs.map(doc2Food));
+  }
+  catch (error: any) {
+    res.status(500).json({ message: `Error fetching food: ${error}` });
+  }
+};
+
+export const addFood = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+  try {
+    const ref = await addDoc(collection(db, 'food'), req.body);
+    res.status(201).json({ id: ref.id });
+  }
+  catch (error: any) {
+    res.status(500).json({ message: `Error adding food: ${error}` });
   }
 }
 
