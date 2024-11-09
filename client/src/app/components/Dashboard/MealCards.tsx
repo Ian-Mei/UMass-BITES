@@ -10,7 +10,7 @@ interface MealCardProps {
 }
 
 const MealCard: React.FC<MealCardProps> = ({ imageSrc, location, mealName, calories }) => (
-  <div className="flex-shrink-0 w-[calc(25%-10px)] md:w-[23%] p-3 bg-white rounded-3xl shadow-2xl">
+  <div className="flex-shrink-0 w-[calc(25%-10px)] md:w-[23%] p-3 bg-white rounded-3xl shadow-2x2">
     <img loading="lazy" src={imageSrc} alt={mealName} className="object-contain rounded-xl w-full aspect-[1.53]" />
     <div className="px-3 py-1 mt-2.5 text-xs uppercase rounded-lg bg-pink-800 bg-opacity-30 text-pink-950">{location}</div>
     <div className="mt-2.5 text-sm">{mealName}</div>
@@ -19,7 +19,7 @@ const MealCard: React.FC<MealCardProps> = ({ imageSrc, location, mealName, calor
 );
 
 const AddMealCard: React.FC = () => (
-  <div className="flex-shrink-0 w-[calc(25%-10px)] md:w-[23%] p-8 text-sm text-center bg-white rounded-3xl shadow-2xl flex flex-col items-center justify-center">
+  <div className="flex-shrink-0 w-[calc(25%-10px)] md:w-[23%] p-8 text-sm text-center bg-white rounded-3xl shadow-2x2 flex flex-col items-center justify-center">
     <img
       loading="lazy"
       src="https://cdn.builder.io/api/v1/image/assets/TEMP/8a477ecb4133eb593bab2f1a3e213a2a37ccaa1f51bffb0a512009382043620f?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8"
@@ -65,7 +65,7 @@ const MealCards: React.FC = () => {
       </div>
 
       {/* Cards container to display three full cards and a partial fourth, taking full container width */}
-      <div className="flex overflow-hidden w-full shadow-2xl">
+      <div className="flex overflow-hidden w-full">
         <div className="flex gap-5 transform transition-transform" style={{ transform: `translateX(-${currentIndex * 210}px)` }}>
           {meals.map((meal, index) => (
             <MealCard key={index} {...meal} />

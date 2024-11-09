@@ -3,10 +3,10 @@ import Link from 'next/link'; // Import Link from next/link
 
 const Sidebar: React.FC = () => {
   return (
-    <nav className="fixed top-0 left-0 w-[17%] h-screen p-8 bg-white shadow-xl overflow-y-auto z-10">
-      <div className="flex flex-col grow justify-between items-center p-8 w-full text-base max-md:mt-8 ">
-        <div className="flex flex-col max-w-full w-[146px]">
-          <h2 className="flex-1 shrink gap-2.5 self-stretch py-2 w-full font-semibold uppercase whitespace-nowrap text-neutral-700">
+    <nav className="fixed top-0 left-0 w-[17%] flex flex-col justify-between h-screen p-8 bg-white shadow-xl overflow-y-hidden z-10">
+      {/* <div className="flex flex-col grow justify-items-stretch items-center p-8 w-full text-base max-md:mt-8 "> */}
+        <div className="flex flex-col max-w-full font-medium whitespace-nowrap w-[146px] max-md:mt-10 self-start">
+          <h2 className="flex-1 shrink gap-2.5 self-stretch py-2 w-full font-semibold uppercase text-neutral-700">
             OVERVIEW
           </h2>
           <ul className="flex flex-col justify-center mt-2.5 w-full font-medium text-neutral-800">
@@ -30,13 +30,13 @@ const Sidebar: React.FC = () => {
             </li>
           </ul>
         </div>
-        <div className="flex flex-col max-w-full font-medium whitespace-nowrap mt-[23rem] w-[146px] max-md:mt-10">
+        <div className="flex flex-col max-w-full font-medium whitespace-nowrap w-[146px] max-md:mt-10 self-end">
           <h2 className="flex-1 shrink gap-2.5 self-stretch py-2 w-full font-semibold uppercase text-neutral-700">
             SETTINGS
           </h2>
           <ul>
             <li>
-              <Link href="/profile" className="flex gap-3 items-center py-2 mt-2.5 w-full rounded-[40px] text-neutral-800">
+              <Link href="\components\Dashboard\profile" className="flex gap-3 items-center py-2 mt-2.5 w-full rounded-[40px] text-neutral-800">
                 <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/9a9ac63f44fdf02244f401553ba9b2b69030a955d2e311783e9a3cd25e812ee1?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8" alt="Settings Icon" className="object-contain shrink-0 self-stretch my-auto w-4 aspect-square" />
                 Settings
               </Link>
@@ -49,7 +49,7 @@ const Sidebar: React.FC = () => {
             </li>
           </ul>
         </div>
-      </div>
+    
     </nav>
   );
 };
