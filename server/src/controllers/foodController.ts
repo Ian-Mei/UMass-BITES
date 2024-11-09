@@ -11,18 +11,18 @@ export const getAllFood = async (req: Request, res: Response, db: Firestore): Pr
     snapshot.forEach(s => ret.push(doc2Food(s)));
     res.json(ret);
   } catch (error: any) {
-    res.status(500).send({ message: 'Error fetching food' })
+    res.status(500).json({ message: 'Error fetching food' });
   }
 };
 
-export const getFoodById = async (req: Request, res: Response, db: Firestore): Promise<void> => {
+export const getFood = async (req: Request, res: Response, db: Firestore): Promise<void> => {
   try {
     const ref = doc(db, 'food', req.params.id);
     const snapshot = await getDoc(ref);
-    if (snapshot.exists()) res.json(snapshot.data());
-    else res.status(404).json({ message: 'Food not found' })
+    if (snapshot.exists()) res.json(snapshot);
+    else res.status(404).json({ message: 'Food not found' });
   } catch (error: any) {
-    res.status(500).send({ message: 'Error fetching food' })
+    res.status(500).json({ message: `Error fetching food: ${error}` });
   }
 }
 
@@ -37,8 +37,8 @@ const doc2Food = (d: DocumentData) => ({
     saturated: d.data().fat.saturated,
     trans: d.data().fat.trans,
   },
-  cholesterol: d.data().number,
-  sodium: d.data().number,
+  cholesterol: d.data().cholesterol,
+  sodium: d.data().sodium,
   carbs: {
     total: d.data().carbs.total,
     fiber: d.data().carbs.fiber,

@@ -13,7 +13,7 @@ const port = process.env.PORT || 3001;
 app.use(express.json());
 
 app.use('/food', foodRoutes);
-// app.use('/users', userRoutes);
+app.use('/users', userRoutes);
 // app.use('/logs', logRoutes);
 
 app.listen(port, () => {
