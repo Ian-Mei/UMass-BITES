@@ -11,20 +11,25 @@ interface NutrientRowProps {
 
 const NutrientRow: React.FC<NutrientRowProps> = ({ name, type, percentage }) => (
   <div className="flex flex-wrap gap-10 items-center mt-6 w-full max-md:max-w-full max-sm:hidden">
-    <div className="flex grow shrink gap-2 justify-center items-center self-stretch my-auto text-sm font-medium whitespace-nowrap min-w-[240px] text-neutral-800 w-[251px]">
-      <div className="flex-1 shrink self-stretch my-auto w-full min-w-[240px]">
-        {name}
-      </div>
+    {/* Nutrient name display */}
+    <div className="flex-1 shrink self-stretch gap-2 my-auto w-full min-w-[240px]">
+      {name} {/* Nutrient name text */}
     </div>
-    <div className="gap-2.5 self-stretch px-3 py-0.5 my-auto text-xs uppercase whitespace-nowrap rounded-lg bg-pink-800 bg-opacity-30 min-h-[15px] text-pink-950">
-      {type}
+    
+    {/* Nutrient type display (e.g., "CARBS", "PROTEIN") */}
+    <div className="w-[80px] py-0.5 my-auto text-xs uppercase text-center whitespace-nowrap rounded-lg bg-pink-800 bg-opacity-30 min-h-[15px] text-pink-950">
+      {type} {/* Nutrient type text */}
     </div>
+
+    {/* Progress bar container for the nutrient percentage */}
     <div className="flex flex-col grow shrink self-stretch my-auto min-w-[240px] rounded-[50px] w-[253px]">
       <div className="flex flex-col items-start bg-zinc-300 rounded-[50px] max-md:pr-5">
-        <div className="flex shrink-0 h-1.5 bg-red-900 rounded-[50px]" style={{ width: `${percentage}%` }} />
+         {/* Progress bar filled to represent the percentage */}
+        <div className="flex shrink h-1.5 bg-red-900 rounded-[50px]" style={{ width: `${percentage}%` }} />
       </div>
     </div>
-    <div className="gap-2.5 self-stretch px-3 py-0.5 my-auto text-xs uppercase whitespace-nowrap rounded-lg bg-pink-800 bg-opacity-30 min-h-[15px] text-pink-950">
+    {/* Percentage display (e.g., "40%") */}
+    <div className="gap-2.5 self-stretch w-[50px] text-center py-0.5 my-auto text-xs uppercase whitespace-nowrap rounded-lg bg-pink-800 bg-opacity-30 min-h-[15px] text-pink-950">
       {percentage}%
     </div>
   </div>
@@ -35,32 +40,20 @@ interface TodaysDetailsProps {}
 const TodaysDetails: React.FC<TodaysDetailsProps> = () => {
   const nutrients = [
     { name: "Fiber", type: "CARBS", percentage: 10 },
-    { name: "Protein", type: "PROTEIN", percentage: 25 },
-    { name: "Fat", type: "FAT", percentage: 15 },
+    { name: "Protein", type: "PROTEIN", percentage: 40 },
+    { name: "Fat", type: "FAT", percentage: 100 },
   ];
 
   return (
     <section className="flex flex-col flex-1 mt-6 w-full max-md:max-w-full max-sm:hidden">
-      <div className="flex flex-wrap justify-between w-full max-md:max-w-full max-sm:hidden">
-        <h2 className="flex-1 shrink text-base font-medium basis-0 text-neutral-800 max-md:max-w-full">
-          TODAY'S DETAILS
-        </h2>
-        <a href="#" className="gap-3 self-stretch my-auto text-xs text-right text-blue-600">
-          See All
-        </a>
-      </div>
-      <div className="flex flex-col mt-5 w-full min-h-[456px] max-md:max-w-full max-sm:hidden">
-        <div className="flex flex-col px-6 py-5 w-full bg-white rounded-xl shadow-2xl min-h-[456px] max-md:px-5 max-md:max-w-full max-sm:hidden">
-          <div className="flex flex-wrap gap-10 justify-center items-center w-full text-xs font-semibold uppercase text-neutral-700 max-md:max-w-full max-sm:hidden">
-            <div className="self-stretch my-auto w-[275px]">NUTRIENTS</div>
-            <div className="self-stretch my-auto text-center w-[21px]">TYPE</div>
-            <div className="flex-1 shrink self-stretch my-auto text-center basis-0">AMOUNTS</div>
-            <div className="self-stretch my-auto w-20 text-center"> . </div>
-          </div>
-          {nutrients.map((nutrient, index) => (
-            <NutrientRow key={index} {...nutrient} />
-          ))}
-        </div>
+      <h2 className="flex-1 shrink text-base mb-3 font-medium basis-0 text-neutral-800">
+        TODAY'S DETAILS
+      </h2>
+      <div className="flex flex-col px-6 py-5 w-full bg-white rounded-xl shadow-2xl">
+        <div className="self-stretch my-auto w-[275px]">NUTRIENTS</div>
+        {nutrients.map((nutrient, index) => (
+          <NutrientRow key={index} {...nutrient} />
+        ))}
       </div>
     </section>
   );

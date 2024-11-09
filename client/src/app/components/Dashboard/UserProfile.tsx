@@ -30,12 +30,6 @@ const UserProfile: React.FC<UserProfileProps> = () => {
               <span className="self-start text-xs uppercase">Welcome King</span>
               <h1 className="mt-6 text-2xl font-semibold">Jonathan Zhang</h1>
             </div>
-            <div className="flex flex-col justify-center p-2.5 mt-1.5 max-w-full text-right text-red-900 w-[133px]">
-              <div className="flex gap-3 items-center py-2 pr-3 pl-4 w-full bg-zinc-300 min-h-[37px] rounded-[40px]">
-                <span className="self-stretch my-auto text-xl font-bold">1</span>
-                <span className="self-stretch my-auto text-xs font-semibold">Day Streak</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>

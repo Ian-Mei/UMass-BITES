@@ -3,7 +3,7 @@ import Link from 'next/link'; // Import Link from next/link
 
 const Sidebar: React.FC = () => {
   return (
-    <nav className="fixed top-0 left-0 w-[17%] h-screen p-8 bg-white overflow-y-auto z-10">
+    <nav className="fixed top-0 left-0 w-[17%] h-screen p-8 bg-white shadow-xl overflow-y-auto z-10">
       <div className="flex flex-col grow justify-between items-center p-8 w-full text-base max-md:mt-8 ">
         <div className="flex flex-col max-w-full w-[146px]">
           <h2 className="flex-1 shrink gap-2.5 self-stretch py-2 w-full font-semibold uppercase whitespace-nowrap text-neutral-700">
