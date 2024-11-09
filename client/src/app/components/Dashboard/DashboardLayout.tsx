@@ -6,16 +6,19 @@ import Sidebar from './Sidebar';
 import MainContent from './MainContent';
 import RightSidebar from './RightSidebar';
 
-interface DashboardLayoutProps {}
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = () => {
+
+const DashboardLayout: React.FC = () => {
   return (
-    <div className="flex gap-5 max-md:flex-col rounded-none">
+    <div className="flex min-h-screen">
       <Sidebar />
-      <MainContent />
-      <RightSidebar />
+      <div className="flex-1 flex">
+        <MainContent />
+        <RightSidebar />
+      </div>
     </div>
   );
 };
+
 
 export default DashboardLayout;

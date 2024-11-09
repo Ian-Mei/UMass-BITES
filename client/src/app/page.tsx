@@ -1,7 +1,11 @@
-import Image from "next/image";
-import DashboardLayout from "./components/Dashboard/DashboardLayout"
-export default function Home() {
+import React from 'react';
+import DashboardLayout from './components/Dashboard/DashboardLayout';
+
+function App() {
   return (
     <DashboardLayout></DashboardLayout>
   );
 }
+
+export default App;
+

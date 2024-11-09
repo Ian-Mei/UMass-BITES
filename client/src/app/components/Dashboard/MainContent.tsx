@@ -11,7 +11,7 @@ interface MainContentProps {}
 
 const MainContent: React.FC<MainContentProps> = () => {
   return (
-    <main className="flex flex-col ml-5 w-[61%] max-md:ml-0 max-md:w-full">
+    <main className="flex-1 p-8 flex-col ml-[17%] mr-[22%] w-[61%] max-md:ml-0 max-md:w-full">
       <div className="flex flex-col pt-5 w-full min-h-[933px] max-md:mt-8 max-md:max-w-full max-sm:hidden">
         <UserProfile />
         <NutrientCards />

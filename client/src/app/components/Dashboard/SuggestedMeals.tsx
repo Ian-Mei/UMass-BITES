@@ -39,18 +39,12 @@ const SuggestedMeals: React.FC<SuggestedMealsProps> = () => {
       <h2 className="self-stretch w-full text-base font-medium text-neutral-800">
         SUGGESTED MEALS
       </h2>
-      <div className="flex flex-col items-center self-center mt-9 w-full max-w-[248px]">
-        <h3 className="w-full text-base font-medium text-neutral-800">
-          Meal Recommendations
-        </h3>
+      <div className="flex flex-col items-center self-center w-full max-w-[248px]">
         <div className="flex flex-col justify-center items-center px-3 py-4 mt-3 w-full bg-white rounded-3xl">
           {meals.map((meal, index) => (
             <MealRecommendation key={index} {...meal} />
           ))}
         </div>
-        <button className="gap-3 self-stretch px-3 py-2 mt-3 max-w-full text-xs font-medium text-right text-white bg-red-900 rounded-[40px] w-[226px]">
-          See All
-        </button>
       </div>
     </section>
   );
