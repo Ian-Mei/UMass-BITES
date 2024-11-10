@@ -8,6 +8,12 @@ halls = ["berkshire", "franklin", "hampshire", "worcester"]
 
 arr = []
 
+def convertToFloatIfNotEmpty(string):
+    if (string == ''):
+        return 0.0
+    else:
+        return float(string)
+
 for h in halls:
     #normal dining halls
     url = 'https://umassdining.com/locations-menus/'+ h + '/menu'
@@ -30,7 +36,7 @@ for h in halls:
             'fat': {
                 'total': float(r['data-total-fat'][:-1]),
                 'saturated': float(r['data-sat-fat'][:-1]),
-                'trans': r['data-trans-fat'][:-1],
+                'trans': convertToFloatIfNotEmpty(r['data-trans-fat'][:-1]),
             },
             'cholesterol': float(r['data-cholesterol'][:-2]),
             'sodium': float(r['data-sodium'][:-2]),
