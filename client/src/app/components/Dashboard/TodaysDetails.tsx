@@ -35,11 +35,11 @@ const NutrientRow: React.FC<NutrientRowProps> = ({ name, type, percentage }) => 
 
 
 const TodaysDetails: React.FC = () => {
-  let nutrients = [
+  const [nutrients, setNutrients] = useState([
     { name: "Fiber", type: "CARBS", percentage: 10 },
     { name: "Protein", type: "PROTEIN", percentage: 40 },
     { name: "Fat", type: "FAT", percentage: 100 },
-  ];
+  ]);
   const [user, setUser] = useState<User>({
     firstName: '',
     lastName: '',
@@ -53,12 +53,6 @@ const TodaysDetails: React.FC = () => {
     allergies: [],
   });
 
-  const [userInfo, setUserInfo] = useState({
-    currentcals: 0,
-    currentprotein: 0,
-    currentcarbs: 0,
-    currentfat: 0,
-  });
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,28 +62,12 @@ const TodaysDetails: React.FC = () => {
         setUser(result as User);
         response = await fetch(`http://localhost:3001/dailies/${userID}`);
         result = await response.json();
-        nutrients = [
+        setNutrients([
           { name: "Fiber", type: "CARBS", percentage: result.currentcarbs / user.goalCals * 100 },
           { name: "Protein", type: "PROTEIN", percentage: result.currentprotein / user.goalProtein * 100 },
           { name: "Fat", type: "FAT", percentage: result.currentfat / 65 * 100 }
-        ];
-        console.log(nutrients);
-        setUserInfo(result);
-
-        // const updatedUserInfo = {
-        //   currentcals: 0,
-        //   currentcarbs: 0,
-        //   currentfat: 0,
-        //   currentprotein: 0,
-        // };
-        // response = await fetch(`http://localhost:3001/dailies/edit/${userID}`, {
-        //   method: 'PUT',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify(updatedUserInfo),
-        // });
-        console.log(response);
+        ]);
+  
         if (!response.ok) {
           throw new Error('Failed to update user info');
         }
@@ -100,6 +78,7 @@ const TodaysDetails: React.FC = () => {
     };
     fetchData();
   }, []);
+  console.log(nutrients);
   return (
     <section className="flex flex-col flex-1 mt-6 w-full max-md:max-w-full max-sm:hidden">
       <h2 className="flex-1 shrink text-base mb-3 font-medium basis-0 text-neutral-800">
