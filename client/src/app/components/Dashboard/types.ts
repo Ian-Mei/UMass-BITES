@@ -13,11 +13,6 @@ export interface DayData {
     protein: number;
   }
 
-  export interface FoodItem{
-    location:string;
-    name:string;
-    calories:number;
-  }
 
 export interface Food {
   name: string;

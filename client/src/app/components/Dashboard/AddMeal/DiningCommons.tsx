@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import FoodSection from './FoodSection';
-import { FoodItem,Food } from '../types';
+import {Food } from '../types';
 
 function dateToMeal() {
   const date = new Date();
@@ -24,49 +24,6 @@ function dateToMeal() {
   }
 }
 
-const bowlItems: FoodItem[] = [
-  {
-    location: 'Worcester Commons',
-    name: 'Shoyu Ramen',
-    calories: 0,
-  }
-];
-
-const wokItems: FoodItem[] = [
-  {
-    location: 'Worcester Commons',
-    name: 'Stir Fry with Noodles',
-    calories: 0,
-  },
-  {
-    location: 'Worcester Commons',
-    name: 'Stir Fry yum yum',
-    calories: 0,
-  }
-];
-
-const grillItems: FoodItem[] = [
-  {
-    location: 'Worcester Commons',
-    name: 'Chicken Burger',
-    calories: 0,
-  },
-  {
-    location: 'Worcester Commons',
-    name: 'Hamburger',
-    calories: 0,
-  },
-  {
-    location: 'Worcester Commons',
-    name: 'Fries',
-    calories: 0,
-  },
-  {
-    location: 'Worcester Commons',
-    name: 'Sweet Fries',
-    calories: 0,
-  }
-];
 
 const DiningCommons: React.FC = () => {
   const [listitems, setListItems] = useState<JSX.Element[]>([]);
@@ -85,10 +42,7 @@ const DiningCommons: React.FC = () => {
           return acc;
         }, {} as Record<string, Food[]>);
         const newListItems = Object.keys(stations).map((key) => {
-          const foodItems = stations[key].map((item) => {
-            return { location: item.hall, name: item.name, calories: item.calories } as FoodItem;
-          });
-          return <FoodSection key={key} title={key} items={foodItems} />;
+          return <FoodSection key={key} title={key} items={stations[key]} />;
         });
 
         setListItems(newListItems);
