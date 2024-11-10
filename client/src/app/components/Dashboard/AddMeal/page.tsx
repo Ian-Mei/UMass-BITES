@@ -2,21 +2,20 @@
 import React, { useState } from 'react';
 import Sidebar from '../Sidebar';
 import RightSidebar from '../RightSidebar';
+import DiningCommons from './DiningCommons';
 
 
 
 
-const DashboardLayout: React.FC = () => {
+const AddMenuLayout: React.FC = () => {
     return (
       <div className="flex min-h-screen">
         <Sidebar />
-        <div className="flex-1 flex">
-        
-          <RightSidebar />
-        </div>
+        <DiningCommons />  
+        <RightSidebar />
       </div>
     );
   };
   
   
-  export default DashboardLayout;
+  export default AddMenuLayout;

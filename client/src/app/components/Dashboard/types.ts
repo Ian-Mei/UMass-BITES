@@ -1,4 +1,4 @@
-    export interface DayData {
+export interface DayData {
     day: string;
     calories: number;
     carbs: number;
@@ -11,4 +11,10 @@
     carbs: number;
     fat: number;
     protein: number;
+  }
+
+  export interface FoodItem {
+    location: string;
+    name: string;
+    calories: number;
   }

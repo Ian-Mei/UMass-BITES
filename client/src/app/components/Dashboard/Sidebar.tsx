@@ -30,7 +30,7 @@ const Sidebar: React.FC = () => {
             </li>
           </ul>
         </div>
-        <div className="flex flex-col max-w-full font-medium whitespace-nowrap w-[146px] max-md:mt-10 self-end">
+        <div className="flex flex-col max-w-full font-medium whitespace-nowrap w-[146px]">
           <h2 className="flex-1 shrink gap-2.5 self-stretch py-2 w-full font-semibold uppercase text-neutral-700">
             SETTINGS
           </h2>

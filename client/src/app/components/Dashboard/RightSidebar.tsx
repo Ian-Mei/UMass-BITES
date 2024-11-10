@@ -1,6 +1,7 @@
 import React from 'react';
 import WeekGraph from './WeekGraph';
 import SuggestedMeals from './SuggestedMeals';
+import { Link } from 'react-router-dom';
 
 
 const RightSidebar: React.FC = () => {

@@ -1,4 +1,6 @@
-import React from 'react';
+"use client"
+
+import React, { useState } from 'react';
 import FoodCard from './FoodCard';
 import { FoodItem } from '../types';
 
@@ -7,28 +9,40 @@ interface FoodSectionProps {
   items: FoodItem[];
 }
 
+
 const FoodSection: React.FC<FoodSectionProps> = ({ title, items }) => {
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const visibleItems = 3.5;
+  const cardWidth = 210; // Width in pixels of each card
+
+  const handleNext = () => {
+    setCurrentIndex(prevIndex => Math.min(prevIndex + 1, items.length - visibleItems));
+  };
+
+  const handlePrevious = () => {
+    setCurrentIndex(prevIndex => Math.max(prevIndex - 1, 0));
+  };
+
   return (
-    <div className="flex flex-col mt-6 w-full max-md:max-w-full">
-      <div className="flex flex-wrap justify-between w-full max-md:max-w-full">
-        <h2 className="flex-1 shrink text-base font-medium basis-0 text-neutral-800 max-md:max-w-full">
-          {title}
-        </h2>
-        <div className="flex gap-3 items-center my-auto">
-          <button className="flex gap-2.5 justify-center self-stretch p-1.5 my-auto w-6 border border-solid border-neutral-400 min-h-[24px] rounded-[50px]">
-            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/0c00ca5ab2d32c1bf514c004bfa1d8a23071f07c9c4427d3f8ea126b1b55ae0b?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8" alt="" className="object-contain flex-1 shrink w-3 aspect-square basis-0" />
-          </button>
-          <button className="flex gap-2.5 justify-center self-stretch p-1.5 my-auto w-6 border border-solid border-neutral-400 min-h-[24px] rounded-[50px]">
-            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/e85f4efdab94be767e5f02f5ee176792120be01e86cfd853eee9aba904c3ae6f?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8" alt="" className="object-contain flex-1 shrink w-3 aspect-square basis-0" />
-          </button>
+    <section className="flex flex-col justify-end items-center mt-6 w-full">
+        <h2 className="text-xl font-bold mb-4">{title}</h2>
+        <div className="flex gap-3 mb-4">
+        <button onClick={handlePrevious} className="p-1.5 w-6 border border-neutral-400 rounded-full" disabled={currentIndex === 0}>
+          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/276d3f106a24b9467c68d5827a4ca135f10d3a84a1a66251d7bd1df4f182fc20?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8" alt="Previous" className="w-3 aspect-square" />
+        </button>
+        <button onClick={handleNext} className="p-1.5 w-6 border border-neutral-400 rounded-full" disabled={currentIndex >= items.length - 3}>
+          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/5eb261754e03688687c6770b68137cf57f14891f90f0642df4edef7e4ee0b46f?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8" alt="Next" className="w-3 aspect-square" />
+        </button>
+      </div>
+      <div className="flex overflow-hidden w-full">
+        <div className="flex transform transition-transform duration-300" style={{ transform: `translateX(-${currentIndex * cardWidth}px)` }}>
+          {items.map((item, index) => (
+            <FoodCard key={index} {...item} />
+          ))}
         </div>
       </div>
-      <div className="flex flex-wrap gap-5 items-center mt-5 w-full font-medium text-neutral-800 max-md:max-w-full">
-        {items.map((item, index) => (
-          <FoodCard key={index} {...item} />
-        ))}
-      </div>
-    </div>
+    </section>
   );
 };
 
