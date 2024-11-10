@@ -17,7 +17,7 @@ const Sidebar: React.FC = () => {
               </Link>
             </li>
             <li>
-              <Link href="/food-log" className="flex gap-3 items-center py-2 mt-2 w-full rounded-[40px]">
+              <Link href="/components/Dashboard/AddMeal" className="flex gap-3 items-center py-2 mt-2 w-full rounded-[40px]">
                 <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cf6911b5ca0e2d848eb3b69275e27a356d2c4ee83f135382b151e42f108dbc8?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8" alt="Food Log Icon" className="object-contain shrink-0 self-stretch my-auto w-4 aspect-square" />
                 Food Log
               </Link>
