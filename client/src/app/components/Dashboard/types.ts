@@ -13,11 +13,6 @@ export interface DayData {
     protein: number;
   }
 
-  export interface FoodItem{
-    location:string;
-    name:string;
-    calories:number;
-  }
 
 export interface Food {
   name: string;
@@ -54,6 +49,9 @@ export interface User {
   maxStreak: number;
   weight: number;
   height: number;
+  goalCals: number;
+  goalProtein: number;
+  allergies: string[];
 }
 
 export interface Log {

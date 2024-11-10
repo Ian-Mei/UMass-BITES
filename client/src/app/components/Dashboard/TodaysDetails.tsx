@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { useState, useEffect } from 'react';
+import { User } from './types';
 interface NutrientRowProps {
   name: string;
   type: string;
@@ -34,12 +35,71 @@ const NutrientRow: React.FC<NutrientRowProps> = ({ name, type, percentage }) => 
 
 
 const TodaysDetails: React.FC = () => {
-  const nutrients = [
+  let nutrients = [
     { name: "Fiber", type: "CARBS", percentage: 10 },
     { name: "Protein", type: "PROTEIN", percentage: 40 },
     { name: "Fat", type: "FAT", percentage: 100 },
   ];
+  const [user, setUser] = useState<User>({
+    firstName: '',
+    lastName: '',
+    profilePicture: 'https://i.pinimg.com/736x/83/bc/8b/83bc8b88cf6bc4b4e04d153a418cde62.jpg',
+    currentStreak: 0,
+    maxStreak: 0,
+    weight: 0,
+    height: 0,
+    goalCals: 2000,
+    goalProtein: 400,
+    allergies: [],
+  });
 
+  const [userInfo, setUserInfo] = useState({
+    currentcals: 0,
+    currentprotein: 0,
+    currentcarbs: 0,
+    currentfat: 0,
+  });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userID = 'mRupKZQfViePG8I6nppc'
+        let response = await fetch(`http://localhost:3001/users/${userID}`);
+        let result = await response.json();
+        setUser(result as User);
+        response = await fetch(`http://localhost:3001/dailies/${userID}`);
+        result = await response.json();
+        nutrients = [
+          { name: "Fiber", type: "CARBS", percentage: result.currentcarbs / user.goalCals * 100 },
+          { name: "Protein", type: "PROTEIN", percentage: result.currentprotein / user.goalProtein * 100 },
+          { name: "Fat", type: "FAT", percentage: result.currentfat / 65 * 100 }
+        ];
+        console.log(nutrients);
+        setUserInfo(result);
+
+        // const updatedUserInfo = {
+        //   currentcals: 0,
+        //   currentcarbs: 0,
+        //   currentfat: 0,
+        //   currentprotein: 0,
+        // };
+        // response = await fetch(`http://localhost:3001/dailies/edit/${userID}`, {
+        //   method: 'PUT',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify(updatedUserInfo),
+        // });
+        console.log(response);
+        if (!response.ok) {
+          throw new Error('Failed to update user info');
+        }
+      }
+      catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <section className="flex flex-col flex-1 mt-6 w-full max-md:max-w-full max-sm:hidden">
       <h2 className="flex-1 shrink text-base mb-3 font-medium basis-0 text-neutral-800">

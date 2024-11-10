@@ -32,11 +32,11 @@ const AddMealCard: React.FC = () => (
 
 const MealCards: React.FC = () => {
   const meals = [
-    { imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/20d36bff7160213033220e960dab72fcc3d1b1c8fd48ae8bf86e343a98e88456?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8", location: "Worcester Commons", mealName: "Shoyu Ramen", calories: 450 },
-    { imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/e0ad73c4e729049df6fadcd642eba4906d13c2f32cbba1d1db5f05d9473dc49b?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8", location: "Worcester Commons", mealName: "Chicken Teriyaki", calories: 400 },
-    { imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/20d36bff7160213033220e960dab72fcc3d1b1c8fd48ae8bf86e343a98e88456?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8", location: "Worcester Commons", mealName: "Beef Stir Fry", calories: 550 },
-    { imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/e0ad73c4e729049df6fadcd642eba4906d13c2f32cbba1d1db5f05d9473dc49b?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8", location: "Worcester Commons", mealName: "Sushi Platter", calories: 300 },
-    { imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/20d36bff7160213033220e960dab72fcc3d1b1c8fd48ae8bf86e343a98e88456?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8", location: "Worcester Commons", mealName: "Tempura Udon", calories: 480 },
+    { imageSrc: "https://umassdining.com/sites/default/files/worcester_commons_new.jpg", location: "Worcester Commons", mealName: "Shoyu Ramen", calories: 450 },
+    { imageSrc: "https://umassdining.com/sites/default/files/worcester_commons_new.jpg", location: "Worcester Commons", mealName: "Chicken Teriyaki", calories: 400 },
+    { imageSrc: "https://umassdining.com/sites/default/files/worcester_commons_new.jpg", location: "Worcester Commons", mealName: "Beef Stir Fry", calories: 550 },
+    { imageSrc: "https://umassdining.com/sites/default/files/worcester_commons_new.jpg", location: "Worcester Commons", mealName: "Sushi Platter", calories: 300 },
+    { imageSrc: "https://umassdining.com/sites/default/files/worcester_commons_new.jpg", location: "Worcester Commons", mealName: "Tempura Udon", calories: 480 },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);

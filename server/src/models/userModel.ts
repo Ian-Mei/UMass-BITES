@@ -9,4 +9,6 @@ export const UserSchema = z.object({
   weight: z.number(),
   height: z.number(),
   allergies: z.array(z.string()),
+  goalCals:z.number(),
+  goalProtein:z.number(),
 });
