@@ -59,7 +59,7 @@ def bestFoods(pctCalories, pctProtein, pctCarbs, pctFat, allergies, time):
           
         return finalFoods
         
-bestFoods(.7, .1, .7, .7, ["Milk"], 'dinner')
+
 
 
 
