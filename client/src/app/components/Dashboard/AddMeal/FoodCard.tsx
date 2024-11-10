@@ -1,13 +1,7 @@
 import React from 'react';
+import { FoodItem } from '../types';
 
-interface FoodCardProps {
-  location: string;
-  name: string;
-  calories: number;
-  imageSrc: string;
-}
-
-const FoodCard: React.FC<FoodCardProps> = ({ location, name, calories, imageSrc }) => {
+const FoodCard: React.FC<FoodItem> = ({ location, name, calories, imageSrc }) => {
   return (
     <article className="flex gap-2.5 items-center self-stretch p-3 my-auto bg-white rounded-3xl shadow-2xl min-h-[88px]">
       <div className="flex flex-col justify-center self-stretch my-auto">
