@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 const foodRoutes = require('./routes/foodRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -13,6 +14,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(express.json());
+app.use(cors());
 
 app.use('/food', foodRoutes);
 app.use('/users', userRoutes);

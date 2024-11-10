@@ -5,6 +5,11 @@ interface NutrientCardProps {
   nutrientName: string;
   percentage: number;
 }
+interface NutrientsProps {
+  carbPercent: number;
+  proteinPercent: number;
+  fatPercent: number;
+}
 
 const NutrientCard: React.FC<NutrientCardProps> = ({ nutrientName, percentage }) => (
   <div className="flex flex-col flex-1 shrink justify-center items-center self-stretch px-3 py-3.5 my-auto bg-white rounded-xl shadow-2xl basis-0">
@@ -14,11 +19,11 @@ const NutrientCard: React.FC<NutrientCardProps> = ({ nutrientName, percentage })
 );
 
 
-const NutrientCards: React.FC = () => {
+const NutrientCards: React.FC<NutrientsProps> = ({ carbPercent, proteinPercent, fatPercent }) => {
   const nutrients = [
-    { altText: "Carbs icon", nutrientName: "Carbs", percentage: 45 },
-    { altText: "Protein icon", nutrientName: "Protein", percentage: 25 },
-    { altText: "Fat icon", nutrientName: "Fat", percentage: 50},
+    { altText: "Carbs icon", nutrientName: "Carbs", percentage: carbPercent },
+    { altText: "Protein icon", nutrientName: "Protein", percentage: proteinPercent },
+    { altText: "Fat icon", nutrientName: "Fat", percentage: fatPercent},
   ];
 
   return (
