@@ -9,11 +9,13 @@ import DiningCommons from './DiningCommons';
 
 const AddMenuLayout: React.FC = () => {
     return (
+
       <div className="flex min-h-screen">
         <Sidebar />
         <DiningCommons />  
         <RightSidebar />
       </div>
+
     );
   };
   
