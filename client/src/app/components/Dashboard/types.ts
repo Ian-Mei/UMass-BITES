@@ -13,19 +13,11 @@ export interface DayData {
     protein: number;
   }
 
-<<<<<<< Updated upstream
-  export interface FoodItem {
-    location: string;
-    name: string;
-    calories: number;
+  export interface FoodItem{
+    location:string;
+    name:string;
+    calories:number;
   }
-=======
-export interface OverallData {
-  calories: number;
-  carbs: number;
-  fat: number;
-  protein: number;
-}
 
 export interface Food {
   name: string;
@@ -51,6 +43,7 @@ export interface Food {
   time: string;
   station: string;
   hall: string;
+  nutritionVal:number;
 }
 
 export interface User {
@@ -68,4 +61,3 @@ export interface Log {
   foodId: string;
   timestamp: Date;
 }
->>>>>>> Stashed changes

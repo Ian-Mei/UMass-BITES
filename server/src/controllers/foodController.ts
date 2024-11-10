@@ -64,12 +64,10 @@ const doc2Food = (d: DocumentData) => ({
     sugar: d.data().carbs.sugar,
   },
   protein: d.data().protein,
-  vitamins: {
-    calcium: d.data().vitamins.calcium,
-    iron: d.data().vitamins.iron,
-    potassium: d.data().vitamins.potassium,
-    d: d.data().vitamins.d,
-  },
   ingredients: d.data().ingredients,
   allergens: d.data().allergens,
+  time:d.data().time,
+  hall:d.data().hall,
+  station:d.data().station,
+  nutritionVal: d.data().nutritionVal
 });
