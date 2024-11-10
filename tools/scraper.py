@@ -1,11 +1,18 @@
 from bs4 import BeautifulSoup
 import requests
 import json
+import re
 
 
 halls = ["berkshire", "franklin", "hampshire", "worcester"]
 
 arr = []
+
+def convertToFloatIfNotEmpty(string):
+    if (string == ''):
+        return 0.0
+    else:
+        return float(string)
 
 for h in halls:
     #normal dining halls
@@ -24,26 +31,26 @@ for h in halls:
             'name': r.text,
             'servingSize': r['data-serving-size'].split(" ")[0],
             'servingUnit': r['data-serving-size'].split(" ")[1],
-            'calories': r['data-calories'],
-            'calsFromFat': r['data-calories-from-fat'],
+            'calories': int(r['data-calories']),
+            'calsFromFat': int(r['data-calories-from-fat']),
             'fat': {
-                'total': r['data-total-fat'],
-                'saturated': r['data-sat-fat'],
-                'trans': r['data-trans-fat'],
+                'total': float(r['data-total-fat'][:-1]),
+                'saturated': float(r['data-sat-fat'][:-1]),
+                'trans': convertToFloatIfNotEmpty(r['data-trans-fat'][:-1]),
             },
-            'cholesterol': r['data-cholesterol'],
-            'sodium': r['data-sodium'],
+            'cholesterol': float(r['data-cholesterol'][:-2]),
+            'sodium': float(r['data-sodium'][:-2]),
             'carbs': {
-                'total': r['data-total-carb'],
-                'fiber': r['data-dietary-fiber'],
-                'sugar': r['data-sugars'],
+                'total': float(r['data-total-carb'][:-1]),
+                'fiber': float(r['data-dietary-fiber'][:-1]),
+                'sugar': float(r['data-sugars'][:-1]),
             },
-            'protein': r['data-protein'],
+            'protein': float(r['data-protein'][:-1]),
             'ingredients': r['data-ingredient-list'],
             'allergens': r['data-allergens'].split(", "),
         }
-        #arr.append(json.dumps(foodResults))
-        requests.post('http://localhost:3001/food/add', json=json.dumps(foodResults))
+        arr.append(json.dumps(foodResults))
+        #requests.post('http://localhost:3001/food/add', json=json.dumps(foodResults))
         
     #grab n gos
     
@@ -70,10 +77,10 @@ for h in halls:
                 'name': rG.text,
                 'servingSize': rG['data-serving-size'].split(" ")[0],
                 'servingUnit': rG['data-serving-size'].split(" ")[1],
-                'calories': rG['data-calories'],
-                'calsFromFat': rG['data-calories-from-fat'],
+                'calories': int(rG['data-calories']),
+                'calsFromFat': int(rG['data-calories-from-fat']),
                 'fat': {
-                    'total': rG['data-total-fat'],
+                    'total': float(rG['data-total-fat']),
                     'saturated': rG['data-sat-fat'],
                     'trans': rG['data-trans-fat'],
                 },
@@ -88,8 +95,7 @@ for h in halls:
                 'ingredients': rG['data-ingredient-list'],
                 'allergens': rG['data-allergens'].split(", "),
             }
-            #arr.append(json.dumps(foodResults))
-            requests.post('http://localhost:3001/food/add', json=json.dumps(foodResults))
+            arr.append(json.dumps(foodResults))
+            #requests.post('http://localhost:3001/food/add', json=json.dumps(foodResults))
     
-    
-    
+print(arr[1])
