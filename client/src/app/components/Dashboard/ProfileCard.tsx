@@ -12,10 +12,10 @@ interface ProfileCardProps {
   weight: number;
   height: { feet: number; inches: number };
   imageSrc: string;
-  
+  allergies:string[];
 }
 const userID = "mRupKZQfViePG8I6nppc";
-const ProfileCard: React.FC<ProfileCardProps> = ({ name, weight, height, imageSrc }) => {
+const ProfileCard: React.FC<ProfileCardProps> = ({ name, weight, height, imageSrc, allergies }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   if (!height || height.feet === undefined || height.inches === undefined) {
