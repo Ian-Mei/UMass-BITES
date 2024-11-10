@@ -6,9 +6,22 @@ const selected = 'https://cdn.builder.io/api/v1/image/assets/TEMP/e6959013634181
 
 const FoodCard: React.FC<FoodItem> = ({ location, name, calories }) => {
   const [imageSrc, setImageSrc] = useState(wantToSelect);
+  const [isAdded, setIsAdded] = useState(false);
+  const [resetPlus, setResetPlus] = useState(false); // Controls when the plus grows back
 
-  const toggleImage = () => {
-    setImageSrc(currentSrc => currentSrc === wantToSelect ? selected : wantToSelect);
+  const handleClick = () => {
+    if (!isAdded) {
+      setImageSrc(imageSrc === wantToSelect ? selected : wantToSelect);
+      setResetPlus(false);
+      setIsAdded(true);
+
+      // Schedule the reset after the check animation completes
+      setTimeout(() => {
+        setResetPlus(true);
+        setIsAdded(false); 
+        
+      }, 2000); // Adjust timeout based on animation timing
+    }
   };
 
   return (
@@ -24,13 +37,26 @@ const FoodCard: React.FC<FoodItem> = ({ location, name, calories }) => {
           </div>
         </div>
       </div>
-      <img 
-        loading="lazy" 
-        src={imageSrc} 
-        alt={name} 
-        className="object-contain shrink-0 self-stretch my-auto w-12 aspect-square cursor-pointer" 
-        onClick={toggleImage}
-      />
+      <button
+        onClick={handleClick}
+        className={`flex items-center justify-center w-16 h-16 rounded-lg transition duration-200 focus:outline-none ${isAdded ? 'added' : ''}`}
+      >
+        <svg className="w-fill" viewBox="0 0 14 14">
+          <path
+            className={`plus fill-red-900 ${isAdded ? 'animate-plus' : ''} ${resetPlus ? 'reset-plus' : ''}`}
+            d="M6,2.6H8V6h3.4V8H8v3.4H6V8H2.6V6H6Z"
+            style={{ transformOrigin: 'center' }}
+          />
+
+            <path
+              className={`check stroke-green-900 ${isAdded ? 'animate-check' : ''}`}
+              d="M12,3.5l-6.81,7L2,7.8"
+              fill="none"
+              style={{ strokeDasharray: 20, strokeDashoffset: 20 }}
+            />
+
+        </svg>
+      </button>
     </article>
   );
 };

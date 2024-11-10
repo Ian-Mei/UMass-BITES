@@ -31,7 +31,7 @@ const MainContent: React.FC = () => {
         console.log(error);
       }
       finally {
-        setUserLoading(false);
+        // setUserLoading(false);
       }
     };
     fetchData();
