@@ -7,14 +7,14 @@ interface MealRecommendationProps {
 }
 
 const MealRecommendation: React.FC<MealRecommendationProps> = ({ mealName, location, imageSrc }) => (
-  <div className="flex flex-col mt-4 w-full max-w-[224px]">
+  <div className="flex flex-col mt-4">
     <div className="flex gap-2 justify-center items-center w-full">
       <div className="flex flex-col flex-1 shrink self-stretch my-auto basis-4">
         <div className="text-xs font-medium text-neutral-800">{mealName}</div>
         <div className="mt-1 text-xs text-zinc-600">{location}</div>
       </div>
       <button className="gap-2.5 self-stretch px-2 py-1 my-auto text-xs font-medium text-center text-white whitespace-nowrap bg-red-900 rounded-lg">
-        Go
+        Add
       </button>
     </div>
     <img loading="lazy" src={imageSrc} alt={mealName} className="object-contain mt-4 w-full" />
@@ -35,13 +35,11 @@ const SuggestedMeals: React.FC = () => {
       <h2 className="self-stretch w-full text-base font-medium text-neutral-800">
         SUGGESTED MEALS
       </h2>
-      <div className="flex flex-col items-center self-center w-full max-w-[248px]">
-        <div className="flex flex-col justify-center items-center px-3 py-4 mt-3 w-full bg-white rounded-3xl">
+        <div className="flex flex-col justify-left py-4 w-full bg-white rounded-3xl">
           {meals.map((meal, index) => (
             <MealRecommendation key={index} {...meal} />
           ))}
         </div>
-      </div>
     </section>
   );
 };
