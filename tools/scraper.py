@@ -3,99 +3,114 @@ import requests
 import json
 import re
 
+def getFoods():
+    halls = ["berkshire", "franklin", "hampshire", "worcester"]
+    arr = []
 
-halls = ["berkshire", "franklin", "hampshire", "worcester"]
+    def convertToFloatIfNotEmpty(string):
+        if (string == ''):
+            return 0.0
+        else:
+            return float(string)
+        
+    def convertToFloatIfStringFraction(string):
+        if ("/" in string):
+            splitStr = string.split("/")
+            return float(splitStr[0]) / float(splitStr[1])
+        else:
+            return float(string)
 
-arr = []
+    for h in halls:
+        #normal dining halls
+        url = 'https://umassdining.com/locations-menus/'+ h + '/menu'
+        page = requests.get(url)
 
-def convertToFloatIfNotEmpty(string):
-    if (string == ''):
-        return 0.0
-    else:
-        return float(string)
+        soup = BeautifulSoup(page.text, "html.parser")
 
-for h in halls:
-    #normal dining halls
-    url = 'https://umassdining.com/locations-menus/'+ h + '/menu'
-    page = requests.get(url)
+        results = soup.find_all('li', attrs={'class':'lightbox-nutrition'});
 
-    soup = BeautifulSoup(page.text, "html.parser")
+        
+        for  i in range (len(results)):
+            r = results[i].a
 
-    results = soup.find_all('li', attrs={'class':'lightbox-nutrition'});
-
+            foodResults = {
+                'name': r.text,
+                'time': r.parent.parent.parent['id'],
+                'hall': h,
+                'station': r.parent.parent.h2.text,
+                'servingSize': convertToFloatIfStringFraction(r['data-serving-size'].split(" ")[0]),
+                'servingUnit': r['data-serving-size'].split(" ")[1],
+                'nutritionVal': round(float(r['data-healthfulness']) / 70, 2),
+                'calories': int(r['data-calories']),
+                'calsFromFat': int(r['data-calories-from-fat']),
+                'fat': {
+                    'total': float(r['data-total-fat'][:-1]),
+                    'saturated': float(r['data-sat-fat'][:-1]),
+                    'trans': convertToFloatIfNotEmpty(r['data-trans-fat'][:-1]),
+                },
+                'cholesterol': float(r['data-cholesterol'][:-2]),
+                'sodium': float(r['data-sodium'][:-2]),
+                'carbs': {
+                    'total': float(r['data-total-carb'][:-1]),
+                    'fiber': float(r['data-dietary-fiber'][:-1]),
+                    'sugar': float(r['data-sugars'][:-1]),
+                },
+                'protein': float(r['data-protein'][:-1]),
+                'ingredients': r['data-ingredient-list'],
+                'allergens': r['data-allergens'].split(", "),
+            }
+            arr.append(foodResults)
+            
+            #requests.post('http://localhost:3001/food/add', json=json.dumps(foodResults))
     
-    for  i in range (len(results)):
-        r = results[i].a
-
-        foodResults = {
-            'name': r.text,
-            'servingSize': r['data-serving-size'].split(" ")[0],
-            'servingUnit': r['data-serving-size'].split(" ")[1],
-            'calories': int(r['data-calories']),
-            'calsFromFat': int(r['data-calories-from-fat']),
-            'fat': {
-                'total': float(r['data-total-fat'][:-1]),
-                'saturated': float(r['data-sat-fat'][:-1]),
-                'trans': convertToFloatIfNotEmpty(r['data-trans-fat'][:-1]),
-            },
-            'cholesterol': float(r['data-cholesterol'][:-2]),
-            'sodium': float(r['data-sodium'][:-2]),
-            'carbs': {
-                'total': float(r['data-total-carb'][:-1]),
-                'fiber': float(r['data-dietary-fiber'][:-1]),
-                'sugar': float(r['data-sugars'][:-1]),
-            },
-            'protein': float(r['data-protein'][:-1]),
-            'ingredients': r['data-ingredient-list'],
-            'allergens': r['data-allergens'].split(", "),
-        }
-        arr.append(json.dumps(foodResults))
-        #requests.post('http://localhost:3001/food/add', json=json.dumps(foodResults))
+    
+    return arr
+   
         
     #grab n gos
     
-    urlG = 'https://umassdining.com/menu/'+h+'-grab-n-go'
-    if (h.__eq__("berkshire")):
-        urlG+="-menu"
-    pageG = requests.get(urlG)
+    #urlG = 'https://umassdining.com/menu/'+h+'-grab-n-go'
+    #if (h.__eq__("berkshire")):
+    #    urlG+="-menu"
+    #pageG = requests.get(urlG)
 
-    soupG = BeautifulSoup(pageG.text, "html.parser")
+    #soupG = BeautifulSoup(pageG.text, "html.parser")
     
-    day = soupG.find('div', attrs={'id':'content_text'})
+    #day = soupG.find('div', attrs={'id':'content_text'})
     
-    closed = day.text
-    print(closed)
+    #closed = day.text
+    #print(closed)
     
-    if ("closed" not in closed):
-        resultsG = soup.find_all('li', attrs={'class':'lightbox-nutrition'});
+    #if ("closed" not in closed):
+    #    resultsG = soup.find_all('li', attrs={'class':'lightbox-nutrition'});
 
     
-        for  i in range (len(resultsG)):
-            rG = results[i].a
+     #   for  i in range (len(resultsG)):
+      #      rG = results[i].a
 
-            foodResults = {
-                'name': rG.text,
-                'servingSize': rG['data-serving-size'].split(" ")[0],
-                'servingUnit': rG['data-serving-size'].split(" ")[1],
-                'calories': int(rG['data-calories']),
-                'calsFromFat': int(rG['data-calories-from-fat']),
-                'fat': {
-                    'total': float(rG['data-total-fat']),
-                    'saturated': rG['data-sat-fat'],
-                    'trans': rG['data-trans-fat'],
-                },
-                'cholesterol': rG['data-cholesterol'],
-                'sodium': rG['data-sodium'],
-                'carbs': {
-                    'total': rG['data-total-carb'],
-                    'fiber': rG['data-dietary-fiber'],
-                    'sugar': rG['data-sugars'],
-                },
-                'protein': rG['data-protein'],
-                'ingredients': rG['data-ingredient-list'],
-                'allergens': rG['data-allergens'].split(", "),
-            }
-            arr.append(json.dumps(foodResults))
+       #     foodResults = {
+        #        'name': rG.text,
+         #       'servingSize': rG['data-serving-size'].split(" ")[0],
+          #      'servingUnit': rG['data-serving-size'].split(" ")[1],
+           #     'calories': int(rG['data-calories']),
+            #    'calsFromFat': int(rG['data-calories-from-fat']),
+             #   'fat': {
+              #      'total': float(rG['data-total-fat']),
+               #     'saturated': rG['data-sat-fat'],
+                #    'trans': rG['data-trans-fat'],
+  #              },
+   #             'cholesterol': rG['data-cholesterol'],
+    #            'sodium': rG['data-sodium'],
+     #           'carbs': {
+      #              'total': rG['data-total-carb'],
+       #             'fiber': rG['data-dietary-fiber'],
+        #            'sugar': rG['data-sugars'],
+         #       },
+          #      'protein': rG['data-protein'],
+           #     'ingredients': rG['data-ingredient-list'],
+            #    'allergens': rG['data-allergens'].split(", "),
+    #        }
+     #       arr.append(json.dumps(foodResults))
             #requests.post('http://localhost:3001/food/add', json=json.dumps(foodResults))
-    
-print(arr[1])
+arr = getFoods()
+#print(arr[0])
