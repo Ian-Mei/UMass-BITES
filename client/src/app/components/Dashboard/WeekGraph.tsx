@@ -1,7 +1,6 @@
 "use client";
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import VerticalProgressBar from './VerticalProgressBar';
-import { useState } from 'react';
 import { User } from './types';
 
 const WeekGraph: React.FC = () => {
@@ -18,28 +17,32 @@ const WeekGraph: React.FC = () => {
     goalProtein: 400,
     allergies: [],
   });
-  const fetchData = async () => {
-    try {
-      const userID = 'mRupKZQfViePG8I6nppc'
-      let response = await fetch(`http://localhost:3001/users/${userID}`);
-      let result = await response.json();
-      setUser(result as User);
-      response = await fetch(`http://localhost:3001/dailies/${userID}`);
-      result = await response.json();
-      const newListItems = [1,2,3,4,5,6,7].map((num) => {
-        return <VerticalProgressBar key ={num} carbs={result.currentcarbs/(user.goalCals*.5)*100} protein={result.currentprotein/user.goalProtein*100} fat={result.currentfat/65*100} />
-      });
-      setListItems(newListItems);
 
-      if (!response.ok) {
-        throw new Error('Failed to update user info');
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userID = 'mRupKZQfViePG8I6nppc';
+        let response = await fetch(`http://localhost:3001/users/${userID}`);
+        let result = await response.json();
+        setUser(result as User);
+        response = await fetch(`http://localhost:3001/dailies/${userID}`);
+        result = await response.json();
+        const newListItems = [1, 2, 3, 4, 5, 6, 7].map((num) => {
+          return <VerticalProgressBar key={num} carbs={result.currentcarbs / (user.goalCals * 0.5) * 100} protein={result.currentprotein / user.goalProtein * 100} fat={result.currentfat / 65 * 100} />;
+        });
+        setListItems(newListItems);
+
+        if (!response.ok) {
+          throw new Error('Failed to update user info');
+        }
+      } catch (error) {
+        console.log(error);
       }
-    }
-    catch (error) {
-      console.log(error);
-    }
-  };
-  fetchData();
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <section>
       <h2 className="self-stretch w-full text-base font-medium whitespace-nowrap text-neutral-800">

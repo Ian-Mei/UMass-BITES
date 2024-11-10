@@ -5,6 +5,7 @@ interface CircularProgressBarProps {
 }
 
 const CircularProgressBar: React.FC<CircularProgressBarProps> = ({ percentage }) => {
+  if (percentage > 1) percentage = 1;
   const radius = 30; // Outer radius
   const strokeWidth = 4; // Width of the progress stroke
   const normalizedRadius = radius - strokeWidth / 2; // Adjusted radius for centering the stroke
@@ -43,7 +44,7 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({ percentage })
         textAnchor="middle"
         fontSize="1.5em"
       >
-        {`${percentage*100}%`}
+        {`${Math.floor(percentage*100)}%`}
       </text>
     </svg>
   );

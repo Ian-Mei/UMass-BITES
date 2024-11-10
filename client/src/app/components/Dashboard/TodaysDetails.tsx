@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { User } from './types';
 interface NutrientRowProps {
   name: string;
@@ -28,7 +28,7 @@ const NutrientRow: React.FC<NutrientRowProps> = ({ name, type, percentage }) => 
     </div>
     {/* Percentage display (e.g., "40%") */}
     <div className="gap-2.5 self-stretch w-[50px] text-center py-0.5 my-auto text-xs uppercase whitespace-nowrap rounded-lg bg-pink-800 bg-opacity-30 min-h-[15px] text-pink-950">
-      {percentage}%
+      {parseFloat(percentage.toFixed(2))}%
     </div>
   </div>
 );
@@ -53,7 +53,6 @@ const TodaysDetails: React.FC = () => {
     allergies: [],
   });
 
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const userID = 'mRupKZQfViePG8I6nppc'
@@ -63,9 +62,9 @@ const TodaysDetails: React.FC = () => {
         response = await fetch(`http://localhost:3001/dailies/${userID}`);
         result = await response.json();
         setNutrients([
-          { name: "Fiber", type: "CARBS", percentage: result.currentcarbs / user.goalCals * 100 },
-          { name: "Protein", type: "PROTEIN", percentage: result.currentprotein / user.goalProtein * 100 },
-          { name: "Fat", type: "FAT", percentage: result.currentfat / 65 * 100 }
+          { name: "Calories", type: "CALS", percentage: (result.currentcals / user.goalCals * 100>100)?100:result.currentcals / user.goalCals * 100 },
+          { name: "Protein", type: "PROTEIN", percentage: (result.currentprotein / user.goalProtein * 100)?100:result.currentprotein / user.goalProtein * 100 },
+          { name: "Fat", type: "FAT", percentage: (result.currentfat / 65 * 100)?100:result.currentfat / 65 * 100 },
         ]);
   
         if (!response.ok) {
@@ -76,9 +75,9 @@ const TodaysDetails: React.FC = () => {
         console.log(error);
       }
     };
-    fetchData();
-  }, []);
-  console.log(nutrients);
+    useEffect(() => {
+      fetchData();
+    }, []);
   return (
     <section className="flex flex-col flex-1 mt-6 w-full max-md:max-w-full max-sm:hidden">
       <h2 className="flex-1 shrink text-base mb-3 font-medium basis-0 text-neutral-800">
