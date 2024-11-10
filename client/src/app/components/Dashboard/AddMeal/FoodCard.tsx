@@ -39,7 +39,7 @@ const FoodCard: React.FC<FoodItem> = ({ location, name, calories }) => {
       </div>
       <button
         onClick={handleClick}
-        className={`flex items-center justify-center w-16 h-16 rounded-lg transition duration-200 focus:outline-none ${isAdded ? 'added' : ''}`}
+        className={`flex items-center justify-center w-16 h-16 rounded-lg transition duration-200 focus:outline-none ml-auto ${isAdded ? 'added' : ''}`}
       >
         <svg className="w-fill" viewBox="0 0 14 14">
           <path

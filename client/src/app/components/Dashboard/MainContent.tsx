@@ -29,12 +29,6 @@ const MainContent: React.FC = () => {
       catch (error) {
         console.log(error);
       }
-<<<<<<< HEAD
-=======
-      finally {
-        // setUserLoading(false);
-      }
->>>>>>> da90585a78b7e403ccb7fcd25cce0e4917e1ad04
     };
     fetchData();
   }, []);
