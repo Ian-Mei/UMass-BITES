@@ -1,6 +1,10 @@
 import React from 'react';
 
-const CircularProgressBar = ({ percentage }) => {
+interface CircularProgressBarProps {
+  percentage: number;
+}
+
+const CircularProgressBar: React.FC<CircularProgressBarProps> = ({ percentage }) => {
   const radius = 30; // Outer radius
   const strokeWidth = 4; // Width of the progress stroke
   const normalizedRadius = radius - strokeWidth / 2; // Adjusted radius for centering the stroke
