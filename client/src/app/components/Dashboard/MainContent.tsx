@@ -18,8 +18,8 @@ const MainContent: React.FC = () => {
     maxStreak: 0,
     weight: 0,
     height: 0,
-    goalCals: 0,
-    goalProtein: 0,
+    goalCals: 2000,
+    goalProtein: 400,
     allergies: [],
   });
 
@@ -39,6 +39,24 @@ const MainContent: React.FC = () => {
         response = await fetch(`http://localhost:3001/dailies/${userID}`);
         result = await response.json();
         setUserInfo(result);
+
+        const updatedUserInfo = {
+          currentcals: 0,
+          currentcarbs: 0,
+          currentfat: 0,
+          currentprotein: 0,
+        };
+        response = await fetch(`http://localhost:3001/dailies/edit/${userID}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedUserInfo),
+        });
+        console.log(response);
+        if (!response.ok) {
+          throw new Error('Failed to update user info');
+        }
       }
       catch (error) {
         console.log(error);
@@ -57,7 +75,7 @@ const MainContent: React.FC = () => {
           imageSrc={user.profilePicture}
           allergies={user.allergies}
         />
-        <NutrientCards carbPercent={userInfo.currentcarbs/(user.goalCals*.5)} proteinPercent={userInfo.currentprotein/user.goalProtein} fatPercent={0.1}/>
+        <NutrientCards carbPercent={userInfo.currentcarbs/(user.goalCals*.5)} proteinPercent={userInfo.currentprotein/user.goalProtein} fatPercent={userInfo.currentfat/65}/>
         <MealCards />
         <TodaysDetails />
         <WeeklyNutritionOverview />
