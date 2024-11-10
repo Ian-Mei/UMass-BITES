@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import {Food} from '../types';
 
 
-const wantToSelect = 'https://cdn.builder.io/api/v1/image/assets/TEMP/b3c565ae803e7be2eaddf7b171fc08407dbc4de40b86933600701d5ef2bf9d1f?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8';
-const selected = 'https://cdn.builder.io/api/v1/image/assets/TEMP/e6959013634181bd597801b17e1f3c3edc89ab4c3b1a16979aedf035845d8abe?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8';
+const wantToSelect = 'https://cdn-icons-png.flaticon.com/512/399/399271.png';
+const selected = 'https://cdn1.vectorstock.com/i/1000x1000/42/00/check-mark-icon-in-red-vector-42404200.jpg';
 
 const FoodCard: React.FC<Food> = (f: Food) => {
   const [imageSrc, setImageSrc] = useState(wantToSelect);

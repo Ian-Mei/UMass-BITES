@@ -50,18 +50,12 @@ const FoodSection: React.FC<FoodSectionProps> = ({ title, items }) => {
       <h2 className="text-xl font-bold mb-4">{title}</h2>
       <div className="flex gap-3 mb-4">
       <button onClick={handlePrevious} className="p-1.5 w-6 border border-neutral-400 rounded-full" disabled={currentIndex === 0}>
-          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/276d3f106a24b9467c68d5827a4ca135f10d3a84a1a66251d7bd1df4f182fc20?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8" alt="Previous" className="w-3 aspect-square" />
+          <img loading="lazy" src="https://cdn-icons-png.flaticon.com/512/271/271220.png" alt="Previous" className="w-3 aspect-square" />
         </button>
         <button onClick={handleNext} className="p-1.5 w-6 border border-neutral-400 rounded-full" disabled={currentIndex >= items.length - 3}>
-          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/5eb261754e03688687c6770b68137cf57f14891f90f0642df4edef7e4ee0b46f?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8" alt="Next" className="w-3 aspect-square" />
+          <img loading="lazy" src="https://cdn-icons-png.flaticon.com/512/32/32213.png" alt="Next" className="w-3 aspect-square" />
         </button>
       </div>
-      {/* <button onClick={handlePrevious} className="p-1.5 w-6 border border-neutral-400 rounded-full" disabled={currentIndex === 0}>
-          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/276d3f106a24b9467c68d5827a4ca135f10d3a84a1a66251d7bd1df4f182fc20?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8" alt="Previous" className="w-3 aspect-square" />
-        </button>
-        <button onClick={handleNext} className="p-1.5 w-6 border border-neutral-400 rounded-full" disabled={currentIndex >= meals.length - 3}>
-          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/5eb261754e03688687c6770b68137cf57f14891f90f0642df4edef7e4ee0b46f?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8" alt="Next" className="w-3 aspect-square" />
-        </button> */}
       <div className="flex overflow-hidden w-full" ref={containerRef}>
         <div className="flex transform transition-transform duration-300" style={{ transform: `translateX(-${currentIndex * cardWidth()}px)` }}>
           {items.map((food, index) => (
