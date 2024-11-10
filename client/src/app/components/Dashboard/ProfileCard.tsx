@@ -40,6 +40,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ name, weight, height, imageSr
         <div className="flex flex-col max-md:w-full">
           <UserInfo name={name} weight={weight} height={height} allergies={allergies}/>
         </div>
+        
       </div>
       <button className="absolute top-4 right-4"onClick={openModal}><Image src={EditButton} className="fill-white"alt="Edit Profile" width={24} height={24} /></button>
                 <Modal

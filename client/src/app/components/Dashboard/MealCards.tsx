@@ -22,7 +22,7 @@ const AddMealCard: React.FC = () => (
   <div className="flex-shrink-0 w-[calc(25%-10px)] md:w-[23%] p-8 text-sm text-center bg-white rounded-3xl shadow-2x2 flex flex-col items-center justify-center">
     <img
       loading="lazy"
-      src="https://cdn.builder.io/api/v1/image/assets/TEMP/8a477ecb4133eb593bab2f1a3e213a2a37ccaa1f51bffb0a512009382043620f?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8"
+      src="https://cdn-icons-png.flaticon.com/512/25/25304.png"
       alt="Add meal"
       className="object-contain w-20 rounded-xl mb-2.5"
     />
@@ -57,10 +57,10 @@ const MealCards: React.FC = () => {
     <section className="flex flex-col items-center mt-6 w-full">
       <div className="flex gap-3 mb-4">
         <button onClick={handlePrevious} className="p-1.5 w-6 border border-neutral-400 rounded-full" disabled={currentIndex === 0}>
-          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/276d3f106a24b9467c68d5827a4ca135f10d3a84a1a66251d7bd1df4f182fc20?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8" alt="Previous" className="w-3 aspect-square" />
+          <img loading="lazy" src="https://cdn-icons-png.flaticon.com/512/271/271220.png" alt="Previous" className="w-3 aspect-square" />
         </button>
         <button onClick={handleNext} className="p-1.5 w-6 border border-neutral-400 rounded-full" disabled={currentIndex >= meals.length - 3}>
-          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/5eb261754e03688687c6770b68137cf57f14891f90f0642df4edef7e4ee0b46f?placeholderIfAbsent=true&apiKey=3c3e08ceeec64dce8693bb87026868e8" alt="Next" className="w-3 aspect-square" />
+          <img loading="lazy" src="https://cdn-icons-png.flaticon.com/512/32/32213.png" alt="Next" className="w-3 aspect-square" />
         </button>
       </div>
 

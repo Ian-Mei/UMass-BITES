@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import FoodSection from './FoodSection';
 import {Food } from '../types';
+import DiningCommonsHeader from './DiningCommonsHeader';
 
 function dateToMeal() {
   const date = new Date();
@@ -57,9 +58,7 @@ const DiningCommons: React.FC = () => {
 
   return (
     <main className=" p-8 ml-[17%] mr-[22%] flex overflow-hidden flex-col items-center">
-      <header className="overflow-hidden px-16 py-10 w-full text-4xl font-medium text-center text-white bg-red-900 rounded-3xl">
-        DINING COMMONS
-      </header>
+        <DiningCommonsHeader/>
       <section className="flex flex-col mt-6 w-full max-md:max-w-full">
       {listitems}
 
