@@ -8,4 +8,5 @@ export const UserSchema = z.object({
   maxStreak: z.number(),
   weight: z.number(),
   height: z.number(),
+  allergies: z.array(z.string()),
 });
