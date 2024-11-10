@@ -48,6 +48,23 @@ export const getAllLogs = async (req: Request, res: Response, next: NextFunction
   }
 }
 
+export const getLogs = async (req: Request, res: Response, next: NextFunction, db: Firestore): Promise<void> => {
+  try {
+    const { from, to } = req.query;
+    let q;
+    if (from && to) q = query(collection(db, 'logs'), where('timestamp', '>=', from), where('timestamp', '<', to));
+    else if (from) q = query(collection(db, 'logs'), where('timestamp', '>=', from));
+    else if (to) q = query(collection(db, 'logs'), where('timestamp', '<', to));
+    else q = query(collection(db, 'logs'));
+
+    const snapshot = await getDocs(q);
+    res.json(snapshot.docs.map(doc2Log));
+  }
+  catch (error: any) {
+    next(error);
+  }
+}
+
 export const addLog = async (req: Request, res: Response, next: NextFunction, db: Firestore): Promise<void> => {
   try {
     const _uref = doc(db, 'users', req.params.user);
