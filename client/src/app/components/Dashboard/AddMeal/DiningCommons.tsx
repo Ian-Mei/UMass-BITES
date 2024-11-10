@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import FoodSection from './FoodSection';
-import { FoodItem,Food } from '../types';
+import {Food } from '../types';
 
 function dateToMeal() {
   const date = new Date();
