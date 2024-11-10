@@ -5,6 +5,7 @@ import cors from 'cors';
 const foodRoutes = require('./routes/foodRoutes');
 const userRoutes = require('./routes/userRoutes');
 const logRoutes = require('./routes/logRoutes');
+const dailiesRoutes = require('./routes/dailiesRoutes')
 
 import { errorHandler } from './middleware/errorHandler';
 
@@ -19,6 +20,7 @@ app.use(cors());
 app.use('/food', foodRoutes);
 app.use('/users', userRoutes);
 app.use('/logs', logRoutes);
+app.use('/dailies',dailiesRoutes)
 
 app.use(errorHandler);
 
