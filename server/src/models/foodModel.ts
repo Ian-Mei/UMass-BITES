@@ -23,4 +23,8 @@ export const FoodSchema = z.object({
   protein: z.number(),
   ingredients: z.string(),
   allergens: z.array(z.string()),
+  time: z.string(),
+  hall: z.string(),
+  station: z.string(),
+  nutritionVal: z.number(),
 });

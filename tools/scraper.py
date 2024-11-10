@@ -59,10 +59,9 @@ def getFoods():
                 'ingredients': r['data-ingredient-list'],
                 'allergens': r['data-allergens'].split(", "),
             }
-            #arr.append(foodResults)
+            arr.append(foodResults)
             
-            requests.post('http://localhost:3001/food/add', json=json.dumps(foodResults))
-    
+            requests.post('http://localhost:3001/food/add', json=foodResults)
     
     #return arr
    
@@ -113,3 +112,6 @@ def getFoods():
      #       arr.append(json.dumps(foodResults))
             #requests.post('http://localhost:3001/food/add', json=json.dumps(foodResults))
 #print(arr[0])
+
+if __name__ == "__main__":
+    getFoods()
