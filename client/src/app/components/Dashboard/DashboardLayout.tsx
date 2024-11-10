@@ -4,7 +4,6 @@ import MainContent from './MainContent';
 import RightSidebar from './RightSidebar';
 
 
-
 const DashboardLayout: React.FC = () => {
   return (
     <div className="flex min-h-screen">
