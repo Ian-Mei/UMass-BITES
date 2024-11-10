@@ -75,7 +75,7 @@ const MainContent: React.FC = () => {
           imageSrc={user.profilePicture}
           allergies={user.allergies}
         />
-        <NutrientCards carbPercent={userInfo.currentcarbs/(user.goalCals*.5)} carbTots= {userInfo.currentcarbs} proteinPercent={userInfo.currentprotein/user.goalProtein} proteinTots={userInfo.currentprotein} fatPercent={userInfo.currentfat/65} fatTots = {userInfo.currentfat} caloriePercent={userInfo.currentcals/2500} calorieTots={userInfo.currentcals}/>
+        <NutrientCards carbPercent={userInfo.currentcarbs/(user.goalCals*.5)} carbTots= {userInfo.currentcarbs} proteinPercent={userInfo.currentprotein/user.goalProtein} proteinTots={userInfo.currentprotein} fatPercent={userInfo.currentfat/65} fatTots = {userInfo.currentfat} caloriePercent={userInfo.currentcals/user.goalCals} calorieTots={userInfo.currentcals}/>
         <MealCards />
         <TodaysDetails />
         <WeeklyNutritionOverview />
