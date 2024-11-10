@@ -18,13 +18,27 @@ const MainContent: React.FC = () => {
     maxStreak: 0,
     weight: 0,
     height: 0,
+    goalCals: 0,
+    goalProtein: 0,
+    allergies: [],
+  });
+
+  const [userInfo, setUserInfo] = useState({
+    currentcals: 0,
+    currentprotein: 0,
+    currentcarbs: 0,
+    currentfat: 0,
   });
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/users/mRupKZQfViePG8I6nppc');
-        const result = await response.json();
+        const userID = 'mRupKZQfViePG8I6nppc'
+        let response = await fetch(`http://localhost:3001/users/${userID}`);
+        let result = await response.json();
         setUser(result as User);
+        response = await fetch(`http://localhost:3001/dailies/${userID}`);
+        result = await response.json();
+        setUserInfo(result);
       }
       catch (error) {
         console.log(error);
@@ -41,8 +55,9 @@ const MainContent: React.FC = () => {
           weight={user.weight}
           height={{ feet: Math.floor(user.height / 12), inches: user.height % 12 }}
           imageSrc={user.profilePicture}
+          allergies={user.allergies}
         />
-        <NutrientCards carbPercent={0.5} proteinPercent={0.2} fatPercent={0.1}/>
+        <NutrientCards carbPercent={userInfo.currentcarbs/(user.goalCals*.5)} proteinPercent={userInfo.currentprotein/user.goalProtein} fatPercent={0.1}/>
         <MealCards />
         <TodaysDetails />
         <WeeklyNutritionOverview />

@@ -54,6 +54,9 @@ export interface User {
   maxStreak: number;
   weight: number;
   height: number;
+  goalCals: number;
+  goalProtein: number;
+  allergies: string[];
 }
 
 export interface Log {

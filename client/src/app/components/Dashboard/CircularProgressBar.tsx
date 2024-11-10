@@ -9,7 +9,7 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({ percentage })
   const strokeWidth = 4; // Width of the progress stroke
   const normalizedRadius = radius - strokeWidth / 2; // Adjusted radius for centering the stroke
   const circumference = 2 * Math.PI * normalizedRadius; // Circumference based on adjusted radius
-  const strokeDashoffset = circumference - (percentage / 100) * circumference; // Calculate offset
+  const strokeDashoffset = circumference - (percentage ) * circumference; // Calculate offset
 
   return (
     <svg width={radius * 2} height={radius * 2}>
@@ -43,7 +43,7 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({ percentage })
         textAnchor="middle"
         fontSize="1.5em"
       >
-        {`${percentage}%`}
+        {`${percentage*100}%`}
       </text>
     </svg>
   );
