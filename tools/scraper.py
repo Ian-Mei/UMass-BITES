@@ -49,8 +49,6 @@ for h in halls:
             'ingredients': r['data-ingredient-list'],
             'allergens': r['data-allergens'].split(", "),
         }
-        arr.append(json.dumps(foodResults))
-        #requests.post('http://localhost:3001/food/add', json=json.dumps(foodResults))
         
     #grab n gos
     
