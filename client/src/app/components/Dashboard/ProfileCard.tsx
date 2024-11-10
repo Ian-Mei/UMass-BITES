@@ -11,8 +11,9 @@ interface ProfileCardProps {
   weight: number;
   height: { feet: number; inches: number };
   imageSrc: string;
+  
 }
-
+const userID = "mRupKZQfViePG8I6nppc";
 const ProfileCard: React.FC<ProfileCardProps> = ({ name, weight, height, imageSrc }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -57,7 +58,42 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ name, weight, height, imageSr
                     }}
                 >
                     <UserDetailsFormProps onSubmit={function (event: React.FormEvent<HTMLFormElement>): void {
-                        console.log('Form submitted', event);
+                        event.preventDefault();
+                        const formData = new FormData(event.currentTarget)
+                        const formDataObj = Object.fromEntries(formData.entries());
+
+                        function formatUserData(data: { [x: string]: unknown; }){
+                        const heightLol = Number(formDataObj['heightFeet']) * 12 + Number(formDataObj['heightInches']);
+                        return {
+                              firstName: data['firstName'],
+                              lastName: data['lastName'],
+                              weight: Number(data['weight']),
+                              height: heightLol,
+                              goalCals: Number(data['goalCalories']),
+                              goalProtein: Number(data['goalProtein'])
+                          };
+                      }
+
+                      const newJsonForm = JSON.stringify(formatUserData(formDataObj));
+                      // console.log(newJsonForm)
+
+                          const updateInfo = async () => {
+                            try {
+                              const response = await fetch(`http://localhost:3001/users/edit/${userID}`, {
+                                method: 'PUT',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                body: newJsonForm,
+                              });
+                              console.log(response)
+                            }
+                            catch (error) {
+                              console.log(error);
+                            }
+                          };
+                          updateInfo();
+                        
                         closeModal();
                     }} />
                     <button onClick={closeModal}>Close</button>
