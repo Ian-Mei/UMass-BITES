@@ -60,6 +60,17 @@ const FoodCard: React.FC<Food> = (f: Food) => {
           <div className="gap-1 self-stretch my-auto bg-white">
             Calories: {f.calories}
           </div>
+          <div className="gap-1 self-stretch my-auto bg-white">
+            Protein: {f.protein}
+          </div>
+        </div>
+        <div className="flex gap-2 items-center self-start mt-2.5 text-xs rounded-none min-h-[12px]">
+          <div className="gap-1 self-stretch my-auto bg-white">
+            Carbs: {f.carbs.total}
+          </div>
+          <div className="gap-1 self-stretch my-auto bg-white">
+            Fats: {f.fat.total}
+          </div>
         </div>
       </div>
       <button

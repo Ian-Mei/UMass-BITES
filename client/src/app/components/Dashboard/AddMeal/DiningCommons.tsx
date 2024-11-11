@@ -3,24 +3,25 @@
 import React, { useEffect, useState } from 'react';
 import FoodSection from './FoodSection';
 import {Food } from '../types';
+import DiningCommonsHeader from './DiningCommonsHeader';
 
 function dateToMeal() {
   const date = new Date();
   const time = [date.getHours(), date.getMinutes()];
   const day = date.getDay();
-
+  
   if (time[0] >= 7 && time[0] <= 10) {
-      if (day >= 5) return "lunch_menu";
-      else return "breakfast_menu";
+    if (day >= 5) return "lunch_menu";
+    else return "breakfast_menu";
   }
   else if (time[0] >= 11 && (time[0] <= 16 && time[1] <= 29)) {
-      return "lunch_menu";
+    return "lunch_menu";
   }
   else if (time[0] >= 16 && time[0] <= 20) {
-      return "dinner_menu";
+    return "dinner_menu";
   }
   else if (time[0] >= 21 && time[0] <= 23) {
-      return "latenight_menu";
+    return "latenight_menu";
   }
 }
 
@@ -75,14 +76,14 @@ function dateToMeal() {
 
 
 const DiningCommons: React.FC = () => {
+  const [selection, setSelection] = useState('');
   const [listitems, setListItems] = useState<JSX.Element[]>([]);
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:3001/food');
         const result = await response.json();
         const time = dateToMeal();
-        const foodItems = (result as Food[]).filter((item) => item.hall === 'worcester' && item.time === "dinner_menu");
+        const foodItems = (result as Food[]).filter((item) => item.hall === 'berkshire' && item.time === 'lunch_menu');;
         const stations = foodItems.reduce((acc, item) => {  
           if (!acc[item.station]) {
             acc[item.station] = [];
